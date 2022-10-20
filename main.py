@@ -1,16 +1,32 @@
 import psycopg2
 import json
 
-with open("data.json", "r") as read:
-    data = json.load(read)
 
-conn = psycopg2.connect(f'dbname={data["dbname"]} user={data["user"]} '
-                        f'password={data["password"]} '
-                        f'host={data["host"]} '
-                        f'port={data["port"]} ')
-cur = conn.cursor()
+class PasswordsGenerator:
+    def __init__(self):
+        super(PasswordsGenerator, self).__init__()
+        self.__cur = None
+        self.__conn = None
 
-cur.execute('SELECT * FROM information')
+    def __open_json(self):
+        with open("data.json", "r") as read:
+            data = json.load(read)
+        return data
 
-rec = cur.fetchall()
-print(rec)
+    def start_connect(self):
+        self.__conn = psycopg2.connect(f'dbname={self.__open_json()["dbname"]} user={self.__open_json()["user"]} '
+                                     f'password={self.__open_json()["password"]} '
+                                     f'host={self.__open_json()["host"]} '
+                                     f'port={self.__open_json()["port"]} ')
+        self.__cur = self.__conn.cursor()
+
+    def fetch_all(self):
+        self.__cur.execute("SELECT * FROM information")
+        rec = self.__cur.fetchall()
+        print(rec)
+
+
+if __name__ == '__main__':
+    class_data = PasswordsGenerator()
+    class_data.start_connect()
+    class_data.fetch_all()

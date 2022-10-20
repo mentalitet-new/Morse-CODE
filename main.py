@@ -4,7 +4,7 @@ import json
 with open("data.json", "r") as read:
     data = json.load(read)
 
-conn = psycopg2.connect(f'dbname=job_srv user=postgres '
+conn = psycopg2.connect(f'dbname={data["dbname"]} user={data["user"]} '
                         f'password={data["password"]} '
                         f'host={data["host"]} '
                         f'port={data["port"]} ')

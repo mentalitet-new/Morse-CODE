@@ -1,7 +1,13 @@
 import psycopg2
+import json
 
-password = input()
-conn = psycopg2.connect(f'dbname=job_srv user=postgres password={password} host=localhost port=5432')
+with open("data.json", "r") as read:
+    data = json.load(read)
+
+conn = psycopg2.connect(f'dbname=job_srv user=postgres '
+                        f'password={data["password"]} '
+                        f'host={data["host"]} '
+                        f'port={data["port"]} ')
 cur = conn.cursor()
 
 cur.execute('SELECT * FROM information')

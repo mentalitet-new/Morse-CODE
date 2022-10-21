@@ -15,9 +15,9 @@ class PasswordsGenerator:
 
     def start_connect(self):
         self.__conn = psycopg2.connect(f'dbname={self.__open_json()["dbname"]} user={self.__open_json()["user"]} '
-                                     f'password={self.__open_json()["password"]} '
-                                     f'host={self.__open_json()["host"]} '
-                                     f'port={self.__open_json()["port"]} ')
+                                       f'password={self.__open_json()["password"]} '
+                                       f'host={self.__open_json()["host"]} '
+                                       f'port={self.__open_json()["port"]} ')
         self.__cur = self.__conn.cursor()
 
     def fetch_all(self):

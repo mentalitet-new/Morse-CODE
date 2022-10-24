@@ -10,11 +10,16 @@ from main_frame import Ui_MainWindow
 class MorseCode(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(MorseCode, self).__init__()
+        self.__total_symbol = None
+        self.__all_symbol_encode = None
         self.setupUi(self)
-        self.__all_symbol_encode = []
-        self.__total_symbol = []
         self.pushButton_dot.clicked.connect(self.symbol_dot)
         self.pushButton_dash.clicked.connect(self.symbol_dash)
+        self.pushButton_play.clicked.connect(self.play)
+
+    def play(self):
+        list_symbol_ent = self.encode_algorithm(self.lineEdit_read_symbol.text())
+        self.play_beep("d".join(list_symbol_ent))
 
     def symbol_dot(self):
         self.play_beep("*")
@@ -28,6 +33,8 @@ class MorseCode(QMainWindow, Ui_MainWindow):
         return data
 
     def encode_algorithm(self, symbol_encode):
+        self.__all_symbol_encode = []
+        self.__total_symbol = []
         data = self.__open_json_key()
         if symbol_encode is not None:
             self.__total_symbol.append(symbol_encode)

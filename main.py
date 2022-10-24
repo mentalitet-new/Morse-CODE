@@ -7,6 +7,7 @@ class PasswordsGenerator:
         super(PasswordsGenerator, self).__init__()
         self.__cur = None
         self.__conn = None
+        self.__total_symbol = []
 
     def __open_json(self):
         with open("data.json", "r") as read:
@@ -23,10 +24,30 @@ class PasswordsGenerator:
     def fetch_all(self):
         self.__cur.execute("SELECT * FROM information")
         rec = self.__cur.fetchall()
-        print(rec)
+        return rec
+
+    def encode_algorithm(self, symbol):
+        all_symbol = []
+        with open("key.json", "r") as read:
+            data = json.load(read)
+
+        if symbol is not None:
+            self.__total_symbol.append(symbol)
+        else:
+            pass
+
+        for i in self.__total_symbol[0]:
+            k = i
+            if k in data["alphabet"]:
+                all_symbol.append(data["alphabet"][k])
+            elif k in data["numbers"]:
+                all_symbol.append(data["numbers"][k])
+        return all_symbol
 
 
 if __name__ == '__main__':
     class_data = PasswordsGenerator()
     class_data.start_connect()
     class_data.fetch_all()
+    print(class_data.encode_algorithm("1AD12"))
+

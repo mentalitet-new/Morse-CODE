@@ -5,14 +5,7 @@ class MorseCode:
     def __init__(self):
         super(MorseCode, self).__init__()
         self.__all_symbol_encode = []
-        self.__cur = None
-        self.__conn = None
         self.__total_symbol = []
-
-    def __open_json_data(self):
-        with open("connect.json", "r") as read:
-            data = json.load(read)
-        return data
 
     def __open_json_key(self):
         with open("key.json", "r") as read:

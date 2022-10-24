@@ -44,6 +44,9 @@ class PasswordsGenerator:
                 all_symbol.append(data["numbers"][k])
         return all_symbol
 
+    def decode_algorithm(self):
+        pass
+
 
 if __name__ == '__main__':
     class_data = PasswordsGenerator()

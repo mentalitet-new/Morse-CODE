@@ -51,3 +51,5 @@ if __name__ == '__main__':
     class_data.fetch_all()
     print(class_data.encode_algorithm("1AD12"))
 
+    print(class_data.encode_algorithm("1AD12"))
+

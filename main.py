@@ -10,8 +10,8 @@ from main_frame import Ui_MainWindow
 class MorseCode(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(MorseCode, self).__init__()
-        self.__total_symbol = None
-        self.__all_symbol_encode = None
+        self.total_symbol = None
+        self.all_symbol_encode = None
         self.setupUi(self)
         self.pushButton_dot.clicked.connect(self.symbol_dot)
         self.pushButton_dash.clicked.connect(self.symbol_dash)
@@ -33,21 +33,21 @@ class MorseCode(QMainWindow, Ui_MainWindow):
         return data
 
     def encode_algorithm(self, symbol_encode):
-        self.__all_symbol_encode = []
-        self.__total_symbol = []
+        self.all_symbol_encode = []
+        self.total_symbol = []
         data = self.__open_json_key()
         if symbol_encode is not None:
-            self.__total_symbol.append(symbol_encode)
+            self.total_symbol.append(symbol_encode)
         else:
             pass
 
-        for i in self.__total_symbol[0].upper():
+        for i in self.total_symbol[0].upper():
             k = i
             if k in data["alphabet"]:
-                self.__all_symbol_encode.append(data["alphabet"][k])
+                self.all_symbol_encode.append(data["alphabet"][k])
             elif k in data["numbers"]:
-                self.__all_symbol_encode.append(data["numbers"][k])
-        return self.__all_symbol_encode
+                self.all_symbol_encode.append(data["numbers"][k])
+        return self.all_symbol_encode
 
     def decode_algorithm(self, symbol_decode):
         data = self.__open_json_key()

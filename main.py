@@ -47,6 +47,7 @@ class MorseCode(QMainWindow, Ui_MainWindow):
                 self.all_symbol_encode.append(data["alphabet"][k])
             elif k in data["numbers"]:
                 self.all_symbol_encode.append(data["numbers"][k])
+        self.statusBar.showMessage(f'Result : {"".join(self.all_symbol_encode)}')
         return self.all_symbol_encode
 
     def decode_algorithm(self, symbol_decode):

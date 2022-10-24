@@ -47,18 +47,23 @@ class MorseCode:
 
     def play_beep(self, dot_dash):
         for i in dot_dash:
-            if i in "*":
+            print(i)
+            if i == "*":
                 winsound.Beep(800, 160)
-            elif i in "-":
+            elif i == "-":
                 winsound.Beep(800, 310)
+            elif i == "d":
+                time.sleep(0.21)
 
 
 if __name__ == '__main__':
     class_data = MorseCode()
     symbol = class_data.encode_algorithm("SOS")
-    print(symbol)
-    print(class_data.decode_algorithm(symbol))
-    class_data.play_beep("***---***")
+    # print(symbol)
+    # print(class_data.decode_algorithm(symbol))
+    join_symbol = "d".join(symbol)
+    print(join_symbol)
+    class_data.play_beep(join_symbol)
     # time.sleep(0.21)
     # winsound.Beep(800, 160)
     # winsound.Beep(800, 160)

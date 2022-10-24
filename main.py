@@ -1,4 +1,7 @@
 import json
+import time
+
+import winsound
 
 
 class MorseCode:
@@ -42,10 +45,29 @@ class MorseCode:
         else:
             return None
 
+    def play_beep(self, dot_dash):
+        for i in dot_dash:
+            if i in "*":
+                winsound.Beep(800, 160)
+            elif i in "-":
+                winsound.Beep(800, 310)
+
 
 if __name__ == '__main__':
     class_data = MorseCode()
-    symbol = class_data.encode_algorithm("SOS123")
+    symbol = class_data.encode_algorithm("SOS")
     print(symbol)
     print(class_data.decode_algorithm(symbol))
-
+    class_data.play_beep("***---***")
+    # time.sleep(0.21)
+    # winsound.Beep(800, 160)
+    # winsound.Beep(800, 160)
+    # winsound.Beep(800, 160)
+    # time.sleep(0.21)
+    # winsound.Beep(800, 310)
+    # winsound.Beep(800, 310)
+    # winsound.Beep(800, 310)
+    # time.sleep(0.21)
+    # winsound.Beep(800, 160)
+    # winsound.Beep(800, 160)
+    # winsound.Beep(800, 160)

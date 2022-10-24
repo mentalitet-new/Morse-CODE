@@ -1,14 +1,26 @@
 import json
+import sys
 import time
-
 import winsound
+from PyQt5.QtWidgets import QApplication, QStyleFactory, QMainWindow
+
+from main_frame import Ui_MainWindow
 
 
-class MorseCode:
+class MorseCode(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(MorseCode, self).__init__()
+        self.setupUi(self)
         self.__all_symbol_encode = []
         self.__total_symbol = []
+        self.pushButton_dot.clicked.connect(self.symbol_dot)
+        self.pushButton_dash.clicked.connect(self.symbol_dash)
+
+    def symbol_dot(self):
+        self.play_beep("*")
+
+    def symbol_dash(self):
+        self.play_beep("-")
 
     def __open_json_key(self):
         with open("key.json", "r") as read:
@@ -57,12 +69,17 @@ class MorseCode:
 
 
 if __name__ == '__main__':
-    class_data = MorseCode()
-    symbol = class_data.encode_algorithm("SOS")
+    app = QApplication(sys.argv)  # create application
+    QApplication.setStyle(QStyleFactory.create('Fusion'))
+    dlgMain = MorseCode()  # create main window
+    dlgMain.show()  # show window
+    sys.exit(app.exec_())
+    # class_data = MorseCode()
+    # symbol = class_data.encode_algorithm("SOS")
     # print(symbol)
     # print(class_data.decode_algorithm(symbol))
-    join_symbol = "d".join(symbol)
-    class_data.play_beep(join_symbol)
+    # join_symbol = "d".join(symbol)
+    # class_data.play_beep(join_symbol)
     # time.sleep(0.21)
     # winsound.Beep(800, 160)
     # winsound.Beep(800, 160)

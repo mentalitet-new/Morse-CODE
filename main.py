@@ -1,15 +1,17 @@
 import json
 import sys
-import time
-import winsound
 from PyQt5.QtWidgets import QApplication, QStyleFactory, QMainWindow
 
 from main_frame import Ui_MainWindow
+from main_threading import Beep
 
 
 class MorseCode(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(MorseCode, self).__init__()
+        self.play_beep_dot = None
+        self.play_beep_dash = None
+        self.play_beep = None
         self.total_symbol = None
         self.all_symbol_encode = None
         self.setupUi(self)
@@ -17,15 +19,19 @@ class MorseCode(QMainWindow, Ui_MainWindow):
         self.pushButton_dash.clicked.connect(self.symbol_dash)
         self.pushButton_play.clicked.connect(self.play)
 
+    def beep_class(self, value):
+        self.play_beep = Beep(self, value)
+        self.play_beep.start()
+
     def play(self):
         list_symbol_ent = self.encode_algorithm(self.lineEdit_read_symbol.text())
-        self.play_beep("d".join(list_symbol_ent))
+        self.beep_class("".join(list_symbol_ent))
 
     def symbol_dot(self):
-        self.play_beep("*")
-
+        self.beep_class("*")
+        
     def symbol_dash(self):
-        self.play_beep("-")
+        self.beep_class("-")
 
     def __open_json_key(self):
         with open("key.json", "r") as read:
@@ -64,16 +70,6 @@ class MorseCode(QMainWindow, Ui_MainWindow):
             return decode_list_password
         else:
             return None
-
-    def play_beep(self, dot_dash):
-        for i in dot_dash:
-            match i:
-                case "*":
-                    winsound.Beep(800, 160)
-                case "-":
-                    winsound.Beep(800, 310)
-                case "d":
-                    time.sleep(0.21)
 
 
 if __name__ == '__main__':

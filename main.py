@@ -25,7 +25,7 @@ class MorseCode(QMainWindow, Ui_MainWindow):
 
     def play(self):
         list_symbol_ent = self.encode_algorithm(self.lineEdit_read_symbol.text())
-        self.beep_class("".join(list_symbol_ent))
+        self.beep_class("d".join(list_symbol_ent))
 
     def symbol_dot(self):
         self.beep_class("*")
